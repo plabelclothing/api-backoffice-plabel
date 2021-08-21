@@ -39,3 +39,8 @@ config.mysqlWrite = {
 	}
 };
 
+config.credential = {
+	secretKey: '{{ api_backoffice_credential_secret_key }}',
+	iv: '{{ api_backoffice_credential_iv }}',
+	ivKey: '{{ api_backoffice_credential_ivKey }}'
+};

@@ -75,4 +75,11 @@ config.mysqlWrite = {
 	},
 	reconnectPeriod: 5000
 };
+
+config.credential = {
+	secretKey: '',
+	iv:        '',
+	ivKey:     ''
+};
+
 module.exports = config;

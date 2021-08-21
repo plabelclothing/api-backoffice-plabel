@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MySqlStorage = void 0;
 /* eslint-disable init-declarations */
 /**
  * @module storage/mysql
@@ -164,6 +163,79 @@ MySqlStorage.testQuery = () => executeQuery('SELECT 1', [])
     const error = new utils_1.ResponseThrowError({
         statusCode: 500,
         message: `Failed while executing testQuery function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});
+/**
+ * Check exist user
+ * @param email
+ */
+MySqlStorage.checkExistUser = (email) => executeQuery('CALL app_backend_backoffice__user_backoffice__check_exist(?)', [
+    email,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing checkExistUser function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});
+/**
+ * Insert a new user
+ * @param email
+ * @param password
+ */
+MySqlStorage.insertUser = (email, password) => executeQuery('CALL app_backend_backoffice__user_backoffice__signup(?,?)', [
+    email,
+    password,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing insertUser function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});
+/**
+ * SignIn user data
+ * @param email
+ * @param password
+ */
+MySqlStorage.getUserSignIn = (email, password) => executeQuery('CALL app_backend_backoffice__user__signin(?,?)', [
+    email,
+    password,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing getUserSignIn function. \nCaused by:\n ${e.stack}`,
         response: {
             status: "FAIL" /* FAIL */,
             message: 'Internal server error',

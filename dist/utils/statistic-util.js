@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.statisticUtil = void 0;
 let timeRequest = {};
 const statisticUtil = function () {
 };
