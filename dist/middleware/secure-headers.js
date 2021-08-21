@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.secureHeaders = void 0;
 const uuid_1 = require("uuid");
 const secureHeaders = (req, res, next) => {
     req.api = {
@@ -11,6 +10,10 @@ const secureHeaders = (req, res, next) => {
     res.header('X-Content-Type-Options', 'nosniff');
     res.header('X-Request-Id', req.api.requestId);
     res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    // Cross origin support for browsers
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Token, Accept');
     // Close connection
     res.set('Connection', 'close');
     next();

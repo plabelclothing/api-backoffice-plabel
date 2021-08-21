@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stats = exports.telemetry = exports.ping = void 0;
 /* Locale modules */
 const utils_1 = require("../utils");
 const services_1 = require("../services");

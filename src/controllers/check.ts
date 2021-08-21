@@ -42,7 +42,6 @@ const telemetry = async (req: Request, res: Response) => {
             error,
             additionalData: error.additionalData,
         }));
-
     }
 };
 

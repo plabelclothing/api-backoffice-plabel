@@ -170,6 +170,81 @@ MySqlStorage.testQuery = () => executeQuery<[][]>('SELECT 1', [])
         return Promise.reject(error);
     });
 
+/**
+ * Check exist user
+ * @param email
+ */
+MySqlStorage.checkExistUser = (email: string) => executeQuery<DbQuery.CheckExistUser[][]>('CALL app_backend_backoffice__user_backoffice__check_exist(?)', [
+    email,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing checkExistUser function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
+
+/**
+ * Insert a new user
+ * @param email
+ * @param password
+ */
+MySqlStorage.insertUser = (email: string, password: string) => executeQuery<[][]>('CALL app_backend_backoffice__user_backoffice__signup(?,?)', [
+    email,
+    password,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing insertUser function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
+
+/**
+ * SignIn user data
+ * @param email
+ * @param password
+ */
+MySqlStorage.getUserSignIn = (email: string, password: string) => executeQuery<DbQuery.GetUserSignIn[][]>('CALL app_backend_backoffice__user__signin(?,?)', [
+    email,
+    password,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing getUserSignIn function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
 
 /** end region of procedures **/
 
