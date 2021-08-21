@@ -13,6 +13,11 @@ const secureHeaders = (req: Request, res: Response, next: NextFunction) => {
 	res.header('X-Request-Id', req.api.requestId);
 	res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
 
+	// Cross origin support for browsers
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Token, Accept');
+
 	// Close connection
 	res.set('Connection', 'close');
 	next();

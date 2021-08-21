@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "62fdb69c-de2c-44ca-acf9-1d4e857a5251",
+		"name": "PLABEL BACKOFFICE API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SIGNIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"shurik045@gmail.com\",\r\n    \"password\": \"Ua1267311997\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1/user/signin",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGNUP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"shurik045+20@gmail.com\",\r\n    \"password\": \"Ua1267311997\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1/user/signup",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

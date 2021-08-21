@@ -74,6 +74,12 @@ declare module ApplicationConfig {
         reconnectPeriod: number;
     }
 
+    export interface Credential {
+        secretKey: string
+        iv: string
+        ivKey: string
+    }
+
     export interface RootObject {
         application: string;
         applicationKey: string;
@@ -82,6 +88,7 @@ declare module ApplicationConfig {
         winston: Winston;
         mysqlRead: MysqlRead;
         mysqlWrite: MysqlWrite;
+        credential: Credential;
     }
 
 }
