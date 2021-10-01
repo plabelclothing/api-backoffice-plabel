@@ -47,7 +47,8 @@ const orderGetByUuid = (req, res) => __awaiter(void 0, void 0, void 0, function*
         yield utils_1.schemaValidator(models_1.orderGetByUuidSchema, body);
         const resultOfGetOrderByUuid = yield services_1.MySqlStorage.getOrderByUuid(params.uuid);
         resultOfGetOrderByUuid.forEach(val => {
-            val.user_order__address = JSON.parse(val.user_order__address);
+            const parsedAddress = JSON.parse(val.user_order__address);
+            val.user_order__address = `${parsedAddress.name.full_name}\n${parsedAddress.address.admin_area_1}, ${parsedAddress.address.admin_area_2}\n${parsedAddress.address.address_line_1}, ${parsedAddress.address.address_line_2}\n${parsedAddress.address.postal_code}\n${parsedAddress.address.country_code}\n${parsedAddress.address.email}\n${parsedAddress.address.phone}`;
             val.user_cart_items__amount = val.user_cart_items__amount * val.products__count;
         });
         if (!resultOfGetOrderByUuid.length) {

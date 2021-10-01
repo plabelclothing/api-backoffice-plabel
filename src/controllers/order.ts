@@ -7,6 +7,7 @@ import {logger, loggerMessage, schemaValidator, ResponseThrowError} from '../uti
 import {LoggerLevel, StatusHttp, LogCodeId, LogCode, LuxonTimezone} from '../enums';
 import {orderGetSchema, orderGetByUuidSchema} from '../models';
 import {MySqlStorage} from '../services';
+import {Controllers} from '../types/controllers';
 
 const orderGet = async (req: Request, res: Response) => {
     try {
@@ -54,7 +55,8 @@ const orderGetByUuid = async (req: Request, res: Response) => {
         const resultOfGetOrderByUuid = await MySqlStorage.getOrderByUuid(params.uuid);
 
         resultOfGetOrderByUuid.forEach(val => {
-            val.user_order__address = JSON.parse(val.user_order__address);
+            const parsedAddress: Controllers.AddressObj = JSON.parse(val.user_order__address);
+            val.user_order__address = `${parsedAddress.name.full_name}\n${parsedAddress.address.admin_area_1}, ${parsedAddress.address.admin_area_2}\n${parsedAddress.address.address_line_1}, ${parsedAddress.address.address_line_2}\n${parsedAddress.address.postal_code}\n${parsedAddress.address.country_code}\n${parsedAddress.address.email}\n${parsedAddress.address.phone}`;
             val.user_cart_items__amount = val.user_cart_items__amount * val.products__count;
         });
 
