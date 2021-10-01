@@ -94,3 +94,37 @@ const userSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.userSignUp = userSignUp;
+const userGetData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { api, } = req;
+        const resultOfGetUserData = yield services_1.MySqlStorage.getUserDataByUuid(api.userUuid);
+        if (!resultOfGetUserData.length) {
+            throw new utils_1.ResponseThrowError({
+                statusCode: 404,
+                message: `User data is not exist`,
+                response: {
+                    status: "FAIL" /* FAIL */,
+                    message: `User already exist`,
+                    data: {
+                        errorCode: "DATA_NOT_FOUND" /* DATA_NOT_FOUND */,
+                        errorId: 10000011 /* DATA_NOT_FOUND */,
+                    }
+                }
+            });
+        }
+        res.status(200).send({
+            status: "SUCCESS" /* SUCCESS */,
+            data: {
+                userEmail: resultOfGetUserData[0].user_backoffice__email,
+            }
+        });
+    }
+    catch (error) {
+        res.status(error.statusCode || 500).json(error.responseObject);
+        utils_1.logger.log("error" /* ERROR */, utils_1.loggerMessage({
+            error,
+            additionalData: error.additionalData,
+        }));
+    }
+});
+exports.userGetData = userGetData;

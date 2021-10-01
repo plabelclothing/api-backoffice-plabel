@@ -102,7 +102,48 @@ const userSignUp = async (req: Request, res: Response) => {
     }
 };
 
+const userGetData = async (req: Request, res: Response) => {
+    try {
+        const {
+            api,
+        } = req;
+
+        const resultOfGetUserData = await MySqlStorage.getUserDataByUuid(<string>api.userUuid);
+
+        if (!resultOfGetUserData.length) {
+            throw new ResponseThrowError({
+                statusCode: 404,
+                message: `User data is not exist`,
+                response: {
+                    status: StatusHttp.FAIL,
+                    message: `User already exist`,
+                    data: {
+                        errorCode: LogCode.DATA_NOT_FOUND,
+                        errorId: LogCodeId.DATA_NOT_FOUND,
+                    }
+                }
+            });
+        }
+
+        res.status(200).send({
+            status: StatusHttp.SUCCESS,
+            data: {
+                userEmail: resultOfGetUserData[0].user_backoffice__email,
+            }
+        });
+
+    } catch (error) {
+        res.status(error.statusCode || 500).json(error.responseObject);
+
+        logger.log(LoggerLevel.ERROR, loggerMessage({
+            error,
+            additionalData: error.additionalData,
+        }));
+    }
+};
+
 export {
     userSignIn,
     userSignUp,
+    userGetData,
 }

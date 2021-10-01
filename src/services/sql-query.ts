@@ -246,6 +246,82 @@ MySqlStorage.getUserSignIn = (email: string, password: string) => executeQuery<D
         return Promise.reject(error);
     });
 
+/**
+ * Get user data
+ * @param uuid
+ */
+MySqlStorage.getUserDataByUuid = (uuid: string) => executeQuery<DbQuery.GetUserDataByUuid[][]>('CALL app_backend_backoffice__user_backoffice__get(?)', [
+    uuid,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing getUserDataByUuid function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
+
+/**
+ * Get orders for table
+ * @param dateFrom
+ * @param dateTo
+ * @param condition
+ */
+MySqlStorage.getOrdersByCondition = (dateFrom: number, dateTo: number, condition: string) => executeQuery<DbQuery.GetOrdersByCondition[][]>('CALL app_backend_backoffice__user_order__get(?,?,?)', [
+    dateFrom,
+    dateTo,
+    condition,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing getOrdersByCondition function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
+
+/**
+ * Get order by uuid
+ * @param uuid
+ */
+MySqlStorage.getOrderByUuid = (uuid: string) => executeQuery<DbQuery.GetOrderByUuid[][]>('CALL app_backend_backoffice__user_order__get_by_uuid(?)', [
+    uuid,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+        const error = new ResponseThrowError({
+            statusCode: 500,
+            message: `Failed while executing getOrderByUuid function. \nCaused by:\n ${e.stack}`,
+            response: {
+                status: StatusHttp.FAIL,
+                message: 'Internal server error',
+                data: {
+                    errorCode: LogCode.MYSQL_SERVICE__QUERY_ERR,
+                    errorId: LogCodeId.MYSQL_SERVICE__QUERY_ERR,
+                }
+            }
+        });
+        return Promise.reject(error);
+    });
+
 /** end region of procedures **/
 
 export {

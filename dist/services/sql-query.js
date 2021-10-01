@@ -247,3 +247,76 @@ MySqlStorage.getUserSignIn = (email, password) => executeQuery('CALL app_backend
     });
     return Promise.reject(error);
 });
+/**
+ * Get user data
+ * @param uuid
+ */
+MySqlStorage.getUserDataByUuid = (uuid) => executeQuery('CALL app_backend_backoffice__user_backoffice__get(?)', [
+    uuid,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing getUserDataByUuid function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});
+/**
+ * Get orders for table
+ * @param dateFrom
+ * @param dateTo
+ * @param condition
+ */
+MySqlStorage.getOrdersByCondition = (dateFrom, dateTo, condition) => executeQuery('CALL app_backend_backoffice__user_order__get(?,?,?)', [
+    dateFrom,
+    dateTo,
+    condition,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing getOrdersByCondition function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});
+/**
+ * Get order by uuid
+ * @param uuid
+ */
+MySqlStorage.getOrderByUuid = (uuid) => executeQuery('CALL app_backend_backoffice__user_order__get_by_uuid(?)', [
+    uuid,
+])
+    .then((rows) => (Promise.resolve(rows[0])))
+    .catch((e) => {
+    const error = new utils_1.ResponseThrowError({
+        statusCode: 500,
+        message: `Failed while executing getOrderByUuid function. \nCaused by:\n ${e.stack}`,
+        response: {
+            status: "FAIL" /* FAIL */,
+            message: 'Internal server error',
+            data: {
+                errorCode: "MYSQL__ERROR" /* MYSQL_SERVICE__QUERY_ERR */,
+                errorId: 10000006 /* MYSQL_SERVICE__QUERY_ERR */,
+            }
+        }
+    });
+    return Promise.reject(error);
+});

@@ -62,6 +62,76 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET ORDERS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiI2ZWY0YWM3MS02MzdjLTQwNTctODZmYy1iMmI5ZjI0MjNhMDMifSwiaWF0IjoxNjMyNzU1MjM5LCJleHAiOjE2MzI4NDE2Mzl9.PCEIbaPZBJ87DuCj0R-Obm9NFZlADuD4FThX269o9yc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dateFrom\": 1601218899,\r\n    \"dateTo\": 1632754916,\r\n    \"timezone\": \"Europe/Warsaw\",\r\n    \"conditions\": {\r\n        \"user_order__status\": [\"canceled\"],\r\n        \"user_order__order_status\": [\"new\"],\r\n        \"user_order__external_id\": [\"XRhDd2g8CzQnay7GVrgS\", \"2ifc8OzfkMMlg7BvBiyI\"],\r\n        \"user__email\": [\"shurik045@gmail.com\"]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1/order/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ORDERS BY UUID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiI2ZWY0YWM3MS02MzdjLTQwNTctODZmYy1iMmI5ZjI0MjNhMDMifSwiaWF0IjoxNjMzMDA2MjE5LCJleHAiOjE2MzMwOTI2MTl9.kP2yQmHZRTatG7BaYAe77TENxgw-2Xij4MFmUWbSXxQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"timezone\": \"Europe/Warsaw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1/order/c85ee969-2b00-4db1-90b7-638af28f8153",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"order",
+						"c85ee969-2b00-4db1-90b7-638af28f8153"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
